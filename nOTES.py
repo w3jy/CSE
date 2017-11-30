@@ -1,3 +1,4 @@
+import random
 #  Is this working
 
 print("Hello World")
@@ -62,7 +63,7 @@ say_hi("John")
 
 
 def print_age(name,age):
-    print("% is %d year old." % (name, age))
+    print("%s is %d year old." % (name, age))
     age += 1  # age = + 1
     print("Next year, they will be %d" % age)
 
@@ -99,4 +100,36 @@ def grade_calc(percent):
         return "H"
     elif percent >= 10:
         return "I"
-    elif percent >=  0:
+
+
+'''Write a function called "happy_birthday"
+that "sings" (prints) Happy birthday
+'''
+def happy_bday(name):
+
+    print("Happy birthday to you")
+    print("Happy birthday to you")
+    print("Happy birthday to %s" % name)
+    print("Happy birthday to you")
+
+happy_bday("John")
+
+
+
+#Loops
+
+for num in range(10):
+    print(num + 100000)
+
+#loop
+a = 1
+while a <= 10:
+    print(a)
+    a += 1
+
+
+# Random Numbers
+
+
+import random  #This should be on line 1
+print(random.randint(0,100))
