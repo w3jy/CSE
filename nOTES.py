@@ -133,3 +133,19 @@ while a <= 10:
 
 import random  #This should be on line 1
 print(random.randint(0,100))
+
+
+# Comparisons
+print(1==1) # Is 1 equal to 1
+print(1 !=2) # Is 1 ntor equal to 2?
+print(10<= 15)
+print(not False)
+
+# Recasting
+
+c = '1'
+print(c == 1)   # Both are ints
+print(int(c) == 1)   #gives a Both are strings
+
+# The input command Always a string
+
