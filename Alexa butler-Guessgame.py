@@ -1,5 +1,7 @@
 import random
 
-print(random.randint(0,50))
+print(random.randint(1,50))
 
-number =input
+number=input("Guess a number")
+
+
