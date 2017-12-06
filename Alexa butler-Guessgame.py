@@ -1,7 +1,10 @@
 import random
+num = random.randint(1,50)
+print(num)
 
-print(random.randint(1,50))
+number = input("guess number")
 
-number=input("Guess a number")
+print(number == str(num))
 
-
+if (number == str(num))
+        print("you win")

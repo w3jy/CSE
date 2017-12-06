@@ -21,3 +21,17 @@ and prints out name.py
 def add_py(name):
     print("%s.py % name") # solution 1
     print (name + ".py") # solution 2
+
+
+# 12.6.17
+"""Write a function called "add"
+which takes three parameters
+and prints the sum of the numbers
+"""
+
+def add(num1, num2, num3,):
+    print(num1 + num2 + num3)
+
+
+
+add(90, 900, 9000)
