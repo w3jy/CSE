@@ -1,10 +1,19 @@
 import random
-num = random.randint(1,50)
+num = random.randint(1, 50)
 print(num)
+guesses_left = 5
 
-number = input("guess number")
+number = 0
+while number != str(num) and guesses_left > 0:
+    number = input("Guess a number")
+    guesses_left -= 1
 
-print(number == str(num))
+    # print(number == str(num))
 
-if (number == str(num))
-        print("you win")
+    if number == str(num):
+        print("You win")
+    elif number >= str(num):
+        print("Guess lower" )
+    elif number <= str(num):
+        print("Guess higher")
+
