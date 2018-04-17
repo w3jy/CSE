@@ -59,7 +59,6 @@ class Key (Item):
         pass
 
 
-
 class Backpack (Item):
     def __init__(self):
         super(Backpack, self).__init__("Backpack", 8, "The Backpack is on the AMP")
@@ -197,7 +196,7 @@ gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north
 school_bus = Room("SCHOOL BUS", None, None, None, "south_admin", "science_building", None, None, None,
                   "You are west of SOUTH ADMIN")
 locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_building", None, None,
-                   "pool", "The scooter is in the lockerroom")
+                   "pool", "The Scooter is in the locker room", [Scooter])
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
                    "You are west of SOUTH ADMIN")
 
@@ -205,7 +204,7 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['pick up', 'take', 'use', 'equip', 'drop', '' ]
+use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look' ]
 while True:
     print(current_node.name)
     print(current_node.description)
@@ -226,3 +225,4 @@ while True:
     else:
         print('Command not recognized')
         print()
+
