@@ -1,26 +1,39 @@
 import random
-"""
-A general guide for Hangman
-1. Make a word bank - 10 items 
-2. Pick a random item from the list
-3. Add a guess to the list to guess
-4. Reveal letters already guessed
-5. Create the win condition
-"""
+import string
 
+print("Welcome to Hangman")
 
+guesses_left = 10
+letters_guessed = []
 # Word_bank
-word_bank = [" Cool , Fun , Happy , School , Class , Nice , Computer , Edison , Awesome , Project "]
+word_bank = ["cool", "fun", "happy", "school","class","nice","crazy","edison","dance", "test"]
 
 # Random Choice
+random_word = random.choice(word_bank)
 
-
-random.choice
-guesses_left = 10
 correct_guess = False
 
 while guesses_left > 0 and correct_guess is False:
-    guess = input("Guess a letter A though Z")
+    output = []
+    for letter in random_word:
+        if letter in letters_guessed:
+            output.append(letter)
+        else:
+            output.append("*")
+    print("".join(output))
+    print(guesses_left)
 
-letters_gusses = []
-guesses =
+    if output == list(random_word):
+        print("You Win")
+        exit(0)
+    print(output)
+
+    guess = input("Guess a letter A though Z")
+    letters_guessed.append(guess)
+    print(letters_guessed)
+    guesses_left -= 1
+
+    if guesses_left == 0:
+        print("You Lose")
+        print("Your random word was")
+        print(random_word)
