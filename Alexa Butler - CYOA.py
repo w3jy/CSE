@@ -20,30 +20,7 @@ class Pen(Item):
         super(Pen, self).__init__("Pen", 3, "The Pen is in the Pool")
 
     def write(self):
-
-        guesses_left = 1
-        letters_guessed = []
-
-        word_bank = [2]
-
-        random_word = random.choice(word_bank)
-
-        correct_guess = False
-
-        while guesses_left > 0 and correct_guess is False:
-            output = []
-            for letter in random_word:
-                if letter in letters_guessed:
-                    output.append(letter)
-                else:
-                    output.append("*")
-            print("".join(output))
-            print(guesses_left)
-
-            if output == list(random_word):
-                print("You passed")
-                exit(0)
-            print(output)
+        print("2")
 
 
 class Test(Item):
@@ -89,6 +66,7 @@ class Clock (Item):
 class Flashlight(Item):
     def __init__(self):
         super(Flashlight, self).__init__("Flashlight", 8, "The Flashlight is in the Cafe")
+
     def use(self):
 
         print("The Flashlight is on")
@@ -108,13 +86,13 @@ class Scooter (Item):
             print("Nothing Happens.")
 
 
-
 class Pencil(Item):
     def __init__(self):
         super(Pencil, self).__init__("Pencil", 3, "The Pencil is in the Art building")
 
     def write(self):
         print("5")
+
 
 class Character(object):
     def __init__(self, name, health, dialogue, status, inventory, description, ):
@@ -137,10 +115,6 @@ class Character(object):
 player = Character("You", 100, None, None, [], "It's You")
 enemy = Character("Staff", 50, None, None, [], "EVIL")
 teacher = Character("Teacher", 50, None, None, [], "The teacher will give you the test")
-player.attack(enemy)
-print(enemy.health)
-enemy.attack(player)
-print(player.health)
 
 
 class Room(object):
@@ -204,7 +178,8 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look' ]
+use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look']
+attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 while True:
     print(current_node.name)
     print(current_node.description)
@@ -217,11 +192,43 @@ while True:
         # Change the command tobe the long form
         command = directions[pos]
 
-    if command in directions:
+    command_found = False
+    for subcommand in use_items:
+        if subcommand in command:
+            print(subcommand)
+            command_found = True
+            if subcommand == 'look':
+                print("You can see items")
+        if subcommand in command:
+                print(subcommand)
+                command_found = True
+                if subcommand == 'drop':
+                    print("You dropped the item")
+        if subcommand in command:
+            print(subcommand)
+            command_found = True
+            if subcommand == 'take':
+                print("You took the item")
+                
+            else:
+                pos = len(subcommand)
+                item_name = command[pos + 1:]
+                print(item_name)
+
+        if subcommand in command:
+            player.attack(enemy)
+            print(enemy.health)
+            enemy.attack(player)
+            print(player.health)
+
+    if command_found:
+        pass
+    elif command in directions:
         try:
             current_node.move(command)
         except KeyError:
             print("You cannot go this way.")
+
     else:
         print('Command not recognized')
         print()

@@ -5,6 +5,7 @@ class Item(object):
         self.value = value
         self.description = description
 
+
 class Computer(Item):
     def __init__(self):
         super(Computer, self).__init__("Computer", 10, "The computer is in the Library")
