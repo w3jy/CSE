@@ -1,5 +1,3 @@
-import random
-
 
 class Item(object):
 
@@ -107,7 +105,7 @@ class Character(object):
     def attack(self, target):
         target.health -= 10
         print("%s deals 10 damage" % self.name)
-
+    
     def interact(self, item):
         self.items += item
 
@@ -178,7 +176,8 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look']
+use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look', 'hit', 'punch', 'kick', 'slap', 'push', 'turn on',
+             'open' 'close', 'turn off']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 while True:
     print(current_node.name)
@@ -216,11 +215,10 @@ while True:
                 print(item_name)
 
         if subcommand in command:
-            player.attack(enemy)
-            print(enemy.health)
             enemy.attack(player)
             print(player.health)
-
+            player.attack(enemy)
+            print(enemy.health)
     if command_found:
         pass
     elif command in directions:
@@ -232,4 +230,3 @@ while True:
     else:
         print('Command not recognized')
         print()
-
