@@ -172,7 +172,6 @@ locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_b
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
                    "You are west of SOUTH ADMIN")
 
-
 current_node = pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
