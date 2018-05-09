@@ -72,7 +72,7 @@ class Flashlight(Item):
 
 class Scooter (Item):
     def __init__(self):
-        super(Scooter, self).__init__("Scooter", 12, "The Scooter is in the lockerroom")
+        super(Scooter, self).__init__("Scooter", 12, "The Scooter is in the locker room")
 
     def use(self):
         self.running = True
@@ -93,7 +93,7 @@ class Pencil(Item):
 
 
 class Character(object):
-    def __init__(self, name, health, dialogue, status, inventory, description, ):
+    def __init__(self, name, health, dialogue, status, inventory, description):
         self.name = name
         self.health = health
         self.dialogue = dialogue
@@ -105,7 +105,7 @@ class Character(object):
     def attack(self, target):
         target.health -= 10
         print("%s deals 10 damage" % self.name)
-    
+
     def interact(self, item):
         self.items += item
 
@@ -149,13 +149,13 @@ cafe = Room("CAFE", "amp", "pool", "science_building", "math_building", "w_build
             None, "The Flashlight is in the Cafe", [Flashlight])
 pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math_building", None, None,
             "You are east of the south admin, there is a teacher by the pool")
-south_admin= Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
-                  "The key is in south admin", [key])
-art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None,
-                   "The Pencil is in the Art building", [Pencil])
+south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
+                   "The key is in south admin", [key])
+art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None, "The door is locked"
+                    "The Pencil is in the Art building", [Pencil])
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
                      "The test is in the math building", [Test])
-w_building = Room("WBUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
+w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
                   "You are west of AMP, the is a teacher")
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
                         , "You are west of CAFE, there is a teacher in the science building")
@@ -175,8 +175,7 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look', 'hit', 'punch', 'kick', 'slap', 'push', 'turn on',
-             'open' 'close', 'turn off']
+use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open' 'close', 'turn off']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 while True:
     print(current_node.name)
@@ -197,27 +196,58 @@ while True:
             command_found = True
             if subcommand == 'look':
                 print("You can see items")
-        if subcommand in command:
-                print(subcommand)
-                command_found = True
-                if subcommand == 'drop':
-                    print("You dropped the item")
-        if subcommand in command:
-            print(subcommand)
-            command_found = True
-            if subcommand == 'take':
+            elif subcommand == 'drop':
+                print("You dropped the item")
+            elif subcommand == 'take':
                 print("You took the item")
-                
+            elif subcommand == 'use':
+                print("You can use the item")
+            elif subcommand == 'equip':
+                print("The item is equiped")
+            elif subcommand == 'turn on':
+                print("You turned on the item")
+            elif subcommand == 'open':
+                print("You opened the door")
+            elif subcommand == 'close ':
+                print("You closed the item")
+            elif subcommand == 'turn off':
+                print("You turned off the item")
+
             else:
                 pos = len(subcommand)
                 item_name = command[pos + 1:]
                 print(item_name)
 
-        if subcommand in command:
-            enemy.attack(player)
-            print(player.health)
-            player.attack(enemy)
-            print(enemy.health)
+            if subcommand == "kick":
+                enemy.attack(player)
+                print(player.health)
+                player.attack(enemy)
+                print(enemy.health)
+
+            if subcommand == "hit":
+                enemy.attack(player)
+                print(player.health)
+                player.attack(enemy)
+                print(enemy.health)
+
+            if subcommand == "punch":
+                enemy.attack(player)
+                print(player.health)
+                player.attack(enemy)
+                print(enemy.health)
+
+            if subcommand == "slap":
+                enemy.attack(player)
+                print(player.health)
+                player.attack(enemy)
+                print(enemy.health)
+
+            if subcommand == "push":
+                enemy.attack(player)
+                print(player.health)
+                player.attack(enemy)
+                print(enemy.health)
+
     if command_found:
         pass
     elif command in directions:
