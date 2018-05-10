@@ -24,7 +24,7 @@ class Pen(Item):
 class Test(Item):
     def __init__(self):
         super(Test, self).__init__("Test", 5, "The test is in the math building")
-
+  
 
 class Key (Item):
     def __init__(self):
@@ -32,6 +32,9 @@ class Key (Item):
 
     def use(self):
         pass
+
+    if subcommand in command == open:
+        print("You unlocked the door")
 
 
 class Backpack (Item):
@@ -46,8 +49,11 @@ class Book (Item):
 
     def __init__(self):
         super(Book, self).__init__("Book", 9, "The Book is in the Library")
+    if subcommand in command == open:
+        print("5 +5 =10")
 
-    def use(self):
+
+def use(self):
         print("5 + 5 =10")
 
 
@@ -175,7 +181,7 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open' 'close', 'turn off']
+use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open' 'close', 'turn off']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 while True:
     print(current_node.name)
@@ -194,7 +200,9 @@ while True:
         if subcommand in command:
             print(subcommand)
             command_found = True
-            if subcommand == 'look':
+            if subcommand == 'unlock':
+                print("You unlocked")
+            elif subcommand == 'look':
                 print("You can see items")
             elif subcommand == 'drop':
                 print("You dropped the item")
