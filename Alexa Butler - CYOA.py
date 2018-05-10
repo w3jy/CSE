@@ -147,7 +147,7 @@ library = Room("library", None, "amp", "art_building", "north_admin", None, "par
                "w_building", "The Book is in the Library", [Book])
 cafe = Room("CAFE", "amp", "pool", "science_building", "math_building", "w_building", "english_building", "South admin",
             None, "The Flashlight is in the Cafe", [Flashlight])
-pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math_building", None, None,
+Pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math_building", None, None,
             "You are east of the south admin, there is a teacher by the pool")
 south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
                    "The key is in south admin", [key])
@@ -172,7 +172,7 @@ locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_b
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
                    "You are west of SOUTH ADMIN")
 
-current_node = pool
+current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
 use_items = ['pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open' 'close', 'turn off']
