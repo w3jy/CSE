@@ -1,3 +1,9 @@
+print("Welcome to Edison, you need to take have math test but in order to take the test you need to find the class, "
+      "find a writing utensil, and study for the math test. All in ten minutes."
+      "If you do all of this in the time frame you win the game, but if you run out of time you lose."
+      " There are items all around the school that will help you with your game , "
+      "but be careful there are also staff members on campus ready to fight. ""Good luck ")
+
 
 class Item(object):
 
@@ -24,7 +30,7 @@ class Pen(Item):
 class Test(Item):
     def __init__(self):
         super(Test, self).__init__("Test", 5, "The test is in the math building")
-  
+
 
 class Key (Item):
     def __init__(self):
@@ -32,9 +38,6 @@ class Key (Item):
 
     def use(self):
         pass
-
-    if subcommand in command == open:
-        print("You unlocked the door")
 
 
 class Backpack (Item):
@@ -49,8 +52,6 @@ class Book (Item):
 
     def __init__(self):
         super(Book, self).__init__("Book", 9, "The Book is in the Library")
-    if subcommand in command == open:
-        print("5 +5 =10")
 
 
 def use(self):
@@ -157,8 +158,8 @@ Pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math
             "You are east of the south admin, there is a teacher by the pool")
 south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
                    "The key is in south admin", [key])
-art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None, "The door is locked"
-                    "The Pencil is in the Art building", [Pencil])
+art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None,
+                    "The door is locked, The Pencil is in the Art building", [Pencil])
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
                      "The test is in the math building", [Test])
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
@@ -181,7 +182,7 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open' 'close', 'turn off']
+use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 while True:
     print(current_node.name)
@@ -196,7 +197,7 @@ while True:
         command = directions[pos]
 
     command_found = False
-    for subcommand in use_items:
+    for subcommand in use_items + attack_methods:
         if subcommand in command:
             print(subcommand)
             command_found = True
