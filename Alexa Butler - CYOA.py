@@ -4,6 +4,8 @@ print("If you do all of this in the time frame you win the game, but if you run 
 print(" There are items all around the school that will help you with your game , ")
 print("but be careful there are also staff members on campus ready to fight. ""Good luck!")
 
+print("Your inventory is empty")
+
 
 class Item(object):
 
@@ -21,7 +23,7 @@ class Computer(Item):
 
 class Pen(Item):
     def __init__(self):
-        super(Pen, self).__init__("Pen", 3, "The Pen is in the Pool")
+        super(Pen, self).__init__("Pen", 3, "The Pen is in the english building")
 
     def write(self):
         print("2")
@@ -161,7 +163,7 @@ south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool"
 art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None,
                     "The door is locked, The Pencil is in the Art building", [Pencil])
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
-                     "The test is in the math building", [Test])
+                     "The door is locked, The test is in the math building", [Test])
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
                   "You are west of AMP, the is a teacher")
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
@@ -169,7 +171,7 @@ science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "
 english_building = Room("ENGLISH BUILDING", "north_admin", "math_building", "amp", "gym", "parking_lot", None, "cafe",
                         None, "You are west of GYM, the pen is in the english building ", [Pen])
 north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_lot", None, None, "gym", "amp",
-                   "You are west of Library")
+                   "You are west of Library, there is a computer is in the north admin", [Computer])
 gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north_admin", None, "cafe", None,
            "The Clock is in the Gym", [Clock])
 school_bus = Room("SCHOOL BUS", None, None, None, "south_admin", "science_building", None, None, None,
@@ -185,8 +187,10 @@ short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
 use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off',
              'ride', 'read', 'take test']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
+inventory = []
+
 while True:
-    print(current_node.name)
+    print("You are at the ", current_node.name)
     print(current_node.description)
     command = input('>_').lower()
     if command == 'quit':
@@ -205,7 +209,7 @@ while True:
             if subcommand == 'ride':
                 print("You are riding the scooter")
             elif subcommand == 'unlock':
-                print("You unlocked")
+                print("You need a key if you have one open ")
             elif subcommand == 'look':
                 print("You can see items")
             elif subcommand == 'drop':
@@ -216,7 +220,7 @@ while True:
             elif subcommand == 'use':
                 print("You can use the item")
             elif subcommand == 'equip':
-                print("The item is equiped")
+                print("The item is equipped")
             elif subcommand == 'turn on':
                 print("You turned on the item")
             elif subcommand == 'open':
@@ -237,27 +241,27 @@ while True:
 
             if subcommand == "kick":
                 enemy.attack(player)
-                print(player.health)
+                print("You have this much health left", player.health)
                 player.attack(enemy)
-                print(enemy.health)
+                print("Your enemy has this much health left", enemy.health)
 
             if subcommand == "hit":
                 enemy.attack(player)
-                print(player.health)
+                print("You have this much health left", player.health)
                 player.attack(enemy)
-                print(enemy.health)
+                print("Your enemy has this much health left", enemy.health)
 
             if subcommand == "punch":
                 enemy.attack(player)
-                print(player.health)
+                print("You have this much health left", player.health)
                 player.attack(enemy)
-                print(enemy.health)
+                print("Your enemy has this much health left", enemy.health)
 
             if subcommand == "slap":
                 enemy.attack(player)
-                print(player.health)
+                print("You have this much health left", player.health)
                 player.attack(enemy)
-                print(enemy.health)
+                print("Your enemy has this much health left", enemy.health)
 
             if subcommand == "push":
                 enemy.attack(player)
@@ -265,6 +269,13 @@ while True:
                 player.attack(enemy)
                 print(enemy.health)
 
+            elif player.health <= 0:
+                print("YOU DIED, GAME OVER!")
+                quit(0)
+
+            elif enemy.health <= 0:
+                print("Your enemy died!")
+                current_node.description = "There is nobody here"
     if command_found:
         pass
     elif command in directions:
