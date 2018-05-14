@@ -1,8 +1,8 @@
-print("Welcome to Edison, you need to take have math test but in order to take the test you need to find the class, "
-      "find a writing utensil, and study for the math test. All in ten minutes."
-      "If you do all of this in the time frame you win the game, but if you run out of time you lose."
-      " There are items all around the school that will help you with your game , "
-      "but be careful there are also staff members on campus ready to fight. ""Good luck ")
+print("Welcome to Edison, you need to take have math test but in order to take the test you need to find the class")
+print("find a writing utensil, and study for the math test. All in ten minutes.")
+print("If you do all of this in the time frame you win the game, but if you run out of time you lose.")
+print(" There are items all around the school that will help you with your game , ")
+print("but be careful there are also staff members on campus ready to fight. ""Good luck!")
 
 
 class Item(object):
@@ -167,7 +167,7 @@ w_building = Room("W BUILDING", "art_building", "science_building", None, "amp",
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
                         , "You are west of CAFE, there is a teacher in the science building")
 english_building = Room("ENGLISH BUILDING", "north_admin", "math_building", "amp", "gym", "parking_lot", None, "cafe",
-                        None, "You are west of GYM")
+                        None, "You are west of GYM, the pen is in the english building ", [Pen])
 north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_lot", None, None, "gym", "amp",
                    "You are west of Library")
 gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north_admin", None, "cafe", None,
@@ -182,7 +182,8 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off']
+use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off',
+             'ride', 'read', 'take test']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 while True:
     print(current_node.name)
@@ -201,7 +202,9 @@ while True:
         if subcommand in command:
             print(subcommand)
             command_found = True
-            if subcommand == 'unlock':
+            if subcommand == 'ride':
+                print("You are riding the scooter")
+            elif subcommand == 'unlock':
                 print("You unlocked")
             elif subcommand == 'look':
                 print("You can see items")
@@ -209,6 +212,7 @@ while True:
                 print("You dropped the item")
             elif subcommand == 'take':
                 print("You took the item")
+                current_node.description = "There is nothing here"
             elif subcommand == 'use':
                 print("You can use the item")
             elif subcommand == 'equip':
@@ -221,6 +225,10 @@ while True:
                 print("You closed the item")
             elif subcommand == 'turn off':
                 print("You turned off the item")
+            elif subcommand == 'take test':
+                print("What is 5 + 5")
+            elif subcommand == 'read':
+                print(" 5 + 5 = 10")
 
             else:
                 pos = len(subcommand)
