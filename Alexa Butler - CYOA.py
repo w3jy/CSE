@@ -127,20 +127,39 @@ class Character(object):
 
     def attack(self, target):
         target.health -= 10
+        if target.health < 0:
+            target.health = 0
         print("%s deals 10 damage" % self.name)
 
     def interact(self, item):
         self.items += item
 
+    def fight(self, target):
+        print("You start fighting %s" % target.name)
+        while self.health > 0 and target.health > 0:
+            cmd = input("What do you want to do?")
+            if cmd in ['attack']:
+                player.attack(target)
+            else:
+                print("You hesitate")
+            if target.health > 0:
+                target.attack(player)
+            if target.health <= 0:
+                print("You have killed %s." % target.name)
+            if self.health <= 0:
+                print("You died.")
+                quit(0)
+
 
 player = Character("You", 100, None, None, [], "It's You")
 enemy = Character("Staff", 50, None, None, [], "EVIL")
 teacher = Character("Teacher", 50, None, None, [], "The teacher will give you the test")
+student = Character("Student", 50, None, None, [], "I am a student")
 
 
 class Room(object):
     def __init__(self, name, north, south, east, west, northeast, northwest, southwest, southeast, description,
-                 items=None):
+                 items=None, characters=None):
         if items is None:
             items = []
         self.name = name
@@ -154,6 +173,7 @@ class Room(object):
         self.southeast = southeast
         self.description = description
         self.items = items
+        self.characters = characters
 
     def move(self, direction):
         global current_node
@@ -171,7 +191,7 @@ library = Room("library", None, "amp", "art_building", "north_admin", None, "par
 cafe = Room("CAFE", "amp", "pool", "science_building", "math_building", "w_building", "english_building", "South admin",
             None, "The Flashlight is in the Cafe", [Flashlight])
 Pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math_building", None, None,
-            "You are east of the south admin, there is a teacher by the pool")
+            "You are east of the south admin, there is a teacher by the pool", None, teacher)
 south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
                    "The key is in south admin", [key])
 art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None,
@@ -179,16 +199,16 @@ art_building = Room("ART BUILDING", None,"w_building", None, "library", None, No
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
                      "The door is locked, The test is in the math building", [Test])
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
-                  "You are west of AMP, the is a teacher")
+                  "You are west of AMP, the is a student ")
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
-                        , "You are west of CAFE, there is a teacher in the science building,"
+                        , "You are west of CAFE, there is a staff member in the science building,"
                           " there is a bandage in the building", [Bandage])
 english_building = Room("ENGLISH BUILDING", "north_admin", "math_building", "amp", "gym", "parking_lot", None, "cafe",
                         None, "You are west of GYM, the pen is in the english building ", [Pen])
 north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_lot", None, None, "gym", "amp",
                    "You are west of Library, there is a computer is in the north admin", [Computer])
 gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north_admin", None, "cafe", None,
-           "The Clock is in the Gym", [Clock])
+           "The Clock is in the Gym, there is a student in the gym", [Clock])
 school_bus = Room("SCHOOL BUS", None, None, None, "south_admin", "science_building", None, None, None,
                   "You are west of SOUTH ADMIN, there is a helmet on the bus", [Helmet])
 locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_building", None, None,
@@ -254,44 +274,14 @@ while True:
                 pos = len(subcommand)
                 item_name = command[pos + 1:]
                 print(item_name)
+            if command in ['kick', 'punch', 'push', 'slap', 'hit']:
+                if current_node.characters is not None:
+                    player.fight(current_node.characters)
+                    current_node.description = "There is nobody here"
+                    current_node.characters = None
+                else:
+                    print("There is nobody here")
 
-            if subcommand == "kick":
-                enemy.attack(player)
-                print("You have this much health left", player.health)
-                player.attack(enemy)
-                print("Your enemy has this much health left", enemy.health)
-
-            if subcommand == "hit":
-                enemy.attack(player)
-                print("You have this much health left", player.health)
-                player.attack(enemy)
-                print("Your enemy has this much health left", enemy.health)
-
-            if subcommand == "punch":
-                enemy.attack(player)
-                print("You have this much health left", player.health)
-                player.attack(enemy)
-                print("Your enemy has this much health left", enemy.health)
-
-            if subcommand == "slap":
-                enemy.attack(player)
-                print("You have this much health left", player.health)
-                player.attack(enemy)
-                print("Your enemy has this much health left", enemy.health)
-
-            if subcommand == "push":
-                enemy.attack(player)
-                print(player.health)
-                player.attack(enemy)
-                print(enemy.health)
-
-            elif player.health <= 0:
-                print("YOU DIED, GAME OVER!")
-                quit(0)
-
-            elif enemy.health <= 0:
-                print("Your enemy died!")
-                current_node.description = "There is nobody here"
     if command_found:
         pass
     elif command in directions:
@@ -302,4 +292,3 @@ while True:
 
     else:
         print('Command not recognized')
-        print()
