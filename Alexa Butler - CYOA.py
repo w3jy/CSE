@@ -3,7 +3,6 @@ print("find a writing utensil, and study for the math test. All in ten minutes."
 print("If you do all of this in the time frame you win the game, but if you run out of time you lose.")
 print(" There are items all around the school that will help you with your game , ")
 print("but be careful there are also staff members on campus ready to fight. ""Good luck!")
-
 print("Your inventory is empty")
 
 
@@ -101,6 +100,21 @@ class Pencil(Item):
         print("5")
 
 
+class Car(Item):
+    def __init__(self):
+        super(Car, self).__init__("Car", 12, "The car is in the parking lot")
+
+
+class Helmet(Item):
+    def __init__(self):
+        super(Helmet, self).__init__("Helmet", 9, "The helmet is at the school bus")
+
+
+class Bandage(Item):
+    def __init__(self):
+        super(Bandage, self).__init__("Bandage", 4, "The bandage is in the science building ")
+
+
 class Character(object):
     def __init__(self, name, health, dialogue, status, inventory, description):
         self.name = name
@@ -167,7 +181,8 @@ math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "a
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
                   "You are west of AMP, the is a teacher")
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
-                        , "You are west of CAFE, there is a teacher in the science building")
+                        , "You are west of CAFE, there is a teacher in the science building,"
+                          " there is a bandage in the building", [Bandage])
 english_building = Room("ENGLISH BUILDING", "north_admin", "math_building", "amp", "gym", "parking_lot", None, "cafe",
                         None, "You are west of GYM, the pen is in the english building ", [Pen])
 north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_lot", None, None, "gym", "amp",
@@ -175,17 +190,17 @@ north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_
 gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north_admin", None, "cafe", None,
            "The Clock is in the Gym", [Clock])
 school_bus = Room("SCHOOL BUS", None, None, None, "south_admin", "science_building", None, None, None,
-                  "You are west of SOUTH ADMIN")
+                  "You are west of SOUTH ADMIN, there is a helmet on the bus", [Helmet])
 locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_building", None, None,
                    "pool", "The Scooter is in the locker room", [Scooter])
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
-                   "You are west of SOUTH ADMIN")
+                   "You are west of SOUTH ADMIN, there is a car in the parking lot", [Car])
 
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
 use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off',
-             'ride', 'read', 'take test']
+             'ride', 'read', 'take test', 'wear']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 inventory = []
 
@@ -233,7 +248,8 @@ while True:
                 print("What is 5 + 5")
             elif subcommand == 'read':
                 print(" 5 + 5 = 10")
-
+            elif subcommand == 'wear':
+                print("You are wearing the helmet ")
             else:
                 pos = len(subcommand)
                 item_name = command[pos + 1:]

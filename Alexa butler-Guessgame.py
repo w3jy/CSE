@@ -13,7 +13,6 @@ while number != str(num) and guesses_left > 0:
     if number == str(num):
         print("You win")
     elif number >= str(num):
-        print("Guess lower" )
+        print("Guess lower")
     elif number <= str(num):
         print("Guess higher")
-
