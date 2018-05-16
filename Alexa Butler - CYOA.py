@@ -130,6 +130,8 @@ class Character(object):
         if target.health < 0:
             target.health = 0
         print("%s deals 10 damage" % self.name)
+        print("Your health is", player.health)
+        print("Your target's health is", target.health)
 
     def interact(self, item):
         self.items += item
@@ -185,36 +187,36 @@ key = Key()
 
 # Initialize Rooms
 amp = Room("AMP", "library", "cafe", "w_building", "english_building", "Gym", None, "science_building", None,
-           "The Backpack is on the AMP", [Backpack])
+           "The Backpack is on the AMP", [Backpack], None)
 library = Room("library", None, "amp", "art_building", "north_admin", None, "parking_lot", "english_building",
-               "w_building", "The Book is in the Library", [Book])
+               "w_building", "The Book is in the Library", [Book], None)
 cafe = Room("CAFE", "amp", "pool", "science_building", "math_building", "w_building", "english_building", "South admin",
-            None, "The Flashlight is in the Cafe", [Flashlight])
+            None, "The Flashlight is in the Cafe", [Flashlight],None)
 Pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math_building", None, None,
             "You are east of the south admin, there is a teacher by the pool", None, teacher)
 south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
-                   "The key is in south admin", [key])
+                   "The key is in south admin", [key], None)
 art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None,
-                    "The door is locked, The Pencil is in the Art building", [Pencil])
+                    "The door is locked, The Pencil is in the Art building", [Pencil], None)
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
-                     "The door is locked, The test is in the math building", [Test])
+                     "The door is locked, The test is in the math building", [Test], None)
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
-                  "You are west of AMP, the is a student ")
+                  "You are west of AMP, the is a student ", None, student)
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
                         , "You are west of CAFE, there is a staff member in the science building,"
-                          " there is a bandage in the building", [Bandage])
+                          " there is a bandage in the building", [Bandage], enemy)
 english_building = Room("ENGLISH BUILDING", "north_admin", "math_building", "amp", "gym", "parking_lot", None, "cafe",
-                        None, "You are west of GYM, the pen is in the english building ", [Pen])
+                        None, "You are west of GYM, the pen is in the english building ", [Pen], None)
 north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_lot", None, None, "gym", "amp",
-                   "You are west of Library, there is a computer is in the north admin", [Computer])
+                   "You are west of Library, there is a computer is in the north admin", [Computer], None)
 gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north_admin", None, "cafe", None,
-           "The Clock is in the Gym, there is a student in the gym", [Clock])
+           "The Clock is in the Gym, there is a student in the gym", [Clock], None)
 school_bus = Room("SCHOOL BUS", None, None, None, "south_admin", "science_building", None, None, None,
-                  "You are west of SOUTH ADMIN, there is a helmet on the bus", [Helmet])
+                  "You are west of SOUTH ADMIN, there is a helmet on the bus", [Helmet], None)
 locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_building", None, None,
-                   "pool", "The Scooter is in the locker room", [Scooter])
+                   "pool", "The Scooter is in the locker room", [Scooter], None)
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
-                   "You are west of SOUTH ADMIN, there is a car in the parking lot", [Car])
+                   "You are west of SOUTH ADMIN, there is a car in the parking lot", [Car], None)
 
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
