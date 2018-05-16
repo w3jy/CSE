@@ -125,6 +125,9 @@ class Character(object):
         self.description = description
         self.items = []
 
+    def take(self, item):
+        self.inventory.append(item)
+
     def attack(self, target):
         target.health -= 10
         if target.health < 0:
@@ -218,6 +221,7 @@ locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_b
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
                    "You are west of SOUTH ADMIN, there is a car in the parking lot", [Car], None)
 
+
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
@@ -251,9 +255,18 @@ while True:
                 print("You can see items")
             elif subcommand == 'drop':
                 print("You dropped the item")
-            elif subcommand == 'take':
-                print("You took the item")
-                current_node.description = "There is nothing here"
+            elif 'take' in subcommand:
+                take_name = subcommand[5:]
+                found = False
+                for thing in player.status.items:
+                    if take_name == thing.name.lower():
+                        if player.take:
+                            print("You took the item")
+                            current_node.description = "There is nothing here"
+                            found = thing
+
+                else:
+                    player.status.items.remove(found)
             elif subcommand == 'use':
                 print("You can use the item")
             elif subcommand == 'equip':
@@ -283,6 +296,8 @@ while True:
                     current_node.characters = None
                 else:
                     print("There is nobody here")
+    if command == 'inventory':
+        print(player.inventory)
 
     if command_found:
         pass
