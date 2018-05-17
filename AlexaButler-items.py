@@ -14,7 +14,7 @@ class Computer(Item):
 
 class Pen(Item):
     def __init__(self):
-        super(Pen, self).__init__("Pen", 3, "The Pen is in the Pool")
+        super(Pen, self).__init__("Pen", 3, "The Pen is in the english building")
 
     def write(self):
         print("2")
@@ -92,19 +92,16 @@ class Pencil(Item):
         print("5")
 
 
-class Character(object):
-    def __init__(self, name, health, dialogue, status, inventory, description):
-        self.name = name
-        self.health = health
-        self.dialogue = dialogue
-        self.status = status
-        self.inventory = []
-        self.description = description
-        self.items = []
+class Car(Item):
+    def __init__(self):
+        super(Car, self).__init__("Car", 12, "The car is in the parking lot")
 
-    def attack(self, target):
-        target.health -= 10
-        print("%s deals 10 damage" % self.name)
 
-    def interact(self, item):
-        self.items += item
+class Helmet(Item):
+    def __init__(self):
+        super(Helmet, self).__init__("Helmet", 9, "The helmet is at the school bus")
+
+
+class Bandage(Item):
+    def __init__(self):
+        super(Bandage, self).__init__("Bandage", 4, "The bandage is in the science building ")

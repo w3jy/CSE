@@ -152,7 +152,12 @@ class Character(object):
             if target.health <= 0:
                 print("You have killed %s." % target.name)
             if self.health <= 0:
-                print("You died.")
+                print("  _____          __  __ ______    ______      ________ _____")
+                print(" / ____|   /\   |  \/  |  ____|  / __ \ \    / /  ____|  __ \")
+                print(" | |  __   /  \  | \  / | |__    | |  | \ \  / /| |__  | |__) |")
+                print(" | | |_ | / /\ \ | |\/| |  __|   | |  | |\ \/ / |  __| |  _  /")
+                print(" | |__| |/ ____ \| |  | | |____  | |__| | \  /  | |____| | \ \")
+                print(" \_____/_/    \_\_|  |_|______|  \____/   \/   |______|_|  \_\")
                 quit(0)
 
 
@@ -190,34 +195,34 @@ key = Key()
 
 # Initialize Rooms
 amp = Room("AMP", "library", "cafe", "w_building", "english_building", "Gym", None, "science_building", None,
-           "The Backpack is on the AMP", [Backpack], None)
+           "The Backpack is on the AMP", [Backpack()], None)
 library = Room("library", None, "amp", "art_building", "north_admin", None, "parking_lot", "english_building",
-               "w_building", "The Book is in the Library", [Book], None)
+               "w_building", "The Book is in the Library", [Book()], None)
 cafe = Room("CAFE", "amp", "pool", "science_building", "math_building", "w_building", "english_building", "South admin",
-            None, "The Flashlight is in the Cafe", [Flashlight],None)
+            None, "The Flashlight is in the Cafe", [Flashlight()], None)
 Pool = Room("POOL", "cafe", None, "south_admin", None, "science_building", "math_building", None, None,
             "You are east of the south admin, there is a teacher by the pool", None, teacher)
 south_admin = Room("SOUTH ADMIN", "science_building", None, "school_bus", "pool", None, "cafe", None, None,
-                   "The key is in south admin", [key], None)
+                   "The key is in south admin", [Key()], None)
 art_building = Room("ART BUILDING", None,"w_building", None, "library", None, None, "amp", None,
-                    "The door is locked, The Pencil is in the Art building", [Pencil], None)
+                    "The door is locked, The Pencil is in the Art building", [Pencil()], None)
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
-                     "The door is locked, The test is in the math building", [Test], None)
+                     "The door is locked, The test is in the math building", [Test()], None)
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
                   "You are west of AMP, the is a student ", None, student)
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
                         , "You are west of CAFE, there is a staff member in the science building,"
-                          " there is a bandage in the building", [Bandage], enemy)
+                          " there is a bandage in the building", [Bandage()], enemy)
 english_building = Room("ENGLISH BUILDING", "north_admin", "math_building", "amp", "gym", "parking_lot", None, "cafe",
-                        None, "You are west of GYM, the pen is in the english building ", [Pen], None)
+                        None, "You are west of GYM, the pen is in the english building ", [Pen()], None)
 north_admin = Room("NORTH ADMIN", None, "english_building", "library", "parking_lot", None, None, "gym", "amp",
                    "You are west of Library, there is a computer is in the north admin", [Computer], None)
 gym = Room("GYM", "parking_lot", "locker_room", "english_building", None, "north_admin", None, "cafe", None,
-           "The Clock is in the Gym, there is a student in the gym", [Clock], None)
+           "The Clock is in the Gym, there is a student in the gym", [Clock()], None)
 school_bus = Room("SCHOOL BUS", None, None, None, "south_admin", "science_building", None, None, None,
-                  "You are west of SOUTH ADMIN, there is a helmet on the bus", [Helmet], None)
+                  "You are west of SOUTH ADMIN, there is a helmet on the bus", [Helmet()], None)
 locker_room = Room("LOCKER ROOM", "gym", None, "math_building", None, "english_building", None, None,
-                   "pool", "The Scooter is in the locker room", [Scooter], None)
+                   "pool", "The Scooter is in the locker room", [Scooter()], None)
 parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "english_building", "gym",
                    "You are west of SOUTH ADMIN, there is a car in the parking lot", [Car], None)
 
@@ -225,7 +230,7 @@ parking_lot = Room("PARKINGLOT", None, "gym", None, "south_admin", None, None, "
 current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
-use_items = ['unlock', 'pick up', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off',
+use_items = ['unlock', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off',
              'ride', 'read', 'take test', 'wear']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 inventory = []
@@ -256,17 +261,18 @@ while True:
             elif subcommand == 'drop':
                 print("You dropped the item")
             elif 'take' in subcommand:
-                take_name = subcommand[5:]
+                take_name = command[5:]
                 found = False
-                for thing in player.status.items:
-                    if take_name == thing.name.lower():
-                        if player.take:
-                            print("You took the item")
-                            current_node.description = "There is nothing here"
-                            found = thing
+                for thing in current_node.items:
+                    if take_name.lower() == thing.name.lower():
+                        player.take(thing)
+                        print("You took the item")
+                        current_node.description = "There is nothing here"
+                        found = True
+                        current_node.items.remove(thing)
+                if not found:
+                    print("You don't see it here")
 
-                else:
-                    player.status.items.remove(found)
             elif subcommand == 'use':
                 print("You can use the item")
             elif subcommand == 'equip':
@@ -297,7 +303,8 @@ while True:
                 else:
                     print("There is nobody here")
     if command == 'inventory':
-        print(player.inventory)
+        for item in player.inventory:
+            print("You have a",item.name)
 
     if command_found:
         pass
