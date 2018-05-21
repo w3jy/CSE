@@ -1,7 +1,7 @@
 print("Welcome to Edison, you need to take have math test but in order to take the test you need to find the class")
-print("find a writing utensil, and study for the math test. All in ten minutes.")
-print("If you do all of this in the time frame you win the game, but if you run out of time you lose.")
-print(" There are items all around the school that will help you with your game , ")
+print("find a writing utensil, and study for the math test.")
+print("If you do all of this  you win the game.")
+print(" There are items all around the school that will help you with your game ,")
 print("but be careful there are also staff members on campus ready to fight. ""Good luck!")
 print("Your inventory is empty")
 
@@ -31,7 +31,6 @@ class Pen(Item):
 class Test(Item):
     def __init__(self):
         super(Test, self).__init__("Test", 5, "The test is in the math building")
-
 
 class Key (Item):
     def __init__(self):
@@ -128,6 +127,9 @@ class Character(object):
     def take(self, item):
         self.inventory.append(item)
 
+    def drop(self, item):
+        self.inventory.remove(item)
+
     def attack(self, target):
         target.health -= 10
         if target.health < 0:
@@ -152,12 +154,7 @@ class Character(object):
             if target.health <= 0:
                 print("You have killed %s." % target.name)
             if self.health <= 0:
-                print("  _____          __  __ ______    ______      ________ _____")
-                print(" / ____|   /\   |  \/  |  ____|  / __ \ \    / /  ____|  __ \")
-                print(" | |  __   /  \  | \  / | |__    | |  | \ \  / /| |__  | |__) |")
-                print(" | | |_ | / /\ \ | |\/| |  __|   | |  | |\ \/ / |  __| |  _  /")
-                print(" | |__| |/ ____ \| |  | | |____  | |__| | \  /  | |____| | \ \")
-                print(" \_____/_/    \_\_|  |_|______|  \____/   \/   |______|_|  \_\")
+                print("GAME OVER, YOU DIED")
                 quit(0)
 
 
@@ -209,7 +206,7 @@ art_building = Room("ART BUILDING", None,"w_building", None, "library", None, No
 math_building = Room("MATH BUILDING", "english_building", None, "cafe", None, "amp", "locker_room", None, "pool",
                      "The door is locked, The test is in the math building", [Test()], None)
 w_building = Room("W BUILDING", "art_building", "science_building", None, "amp", None, "library", "cafe", None,
-                  "You are west of AMP, the is a student ", None, student)
+                  "You are west of AMP, there is a student ", None, student)
 science_building = Room("SCIENCE BUILDING", "w_building", "south_admin", None, "cafe", None, "amp", "pool", "school_bus"
                         , "You are west of CAFE, there is a staff member in the science building,"
                           " there is a bandage in the building", [Bandage()], enemy)
@@ -231,7 +228,7 @@ current_node = Pool
 directions = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southwest', 'southeast']
 short_directions = ['n', 's', 'e', 'w', 'ne', 'nw', 'sw', 'se']
 use_items = ['unlock', 'take', 'use', 'equip', 'drop', 'look', 'turn on', 'open', 'close', 'turn off',
-             'ride', 'read', 'take test', 'wear']
+             'ride', 'read', 'do test', 'wear']
 attack_methods = ['hit', 'punch', 'kick', 'slap', 'push']
 inventory = []
 
@@ -285,8 +282,14 @@ while True:
                 print("You closed the item")
             elif subcommand == 'turn off':
                 print("You turned off the item")
-            elif subcommand == 'take test':
-                print("What is 5 + 5")
+            elif subcommand == 'do test':
+                ans = int(input("What is 5 + 5? "))
+                if ans == 10:
+                    print("YOU PASSED THE TEST, YOU WON!")
+                    quit(0)
+                else:
+                    print("Incorrect")
+
             elif subcommand == 'read':
                 print(" 5 + 5 = 10")
             elif subcommand == 'wear':
